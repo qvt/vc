@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.opengl.PGraphics3D;
 import processing.visualcube1e3.VisualCube;
 import processing.visualcube1e3.AbstractVisualCube.Color;
 import processing.visualcube1e3.device.VisualCubeConstants;
@@ -81,11 +82,18 @@ public class VisualCubeRenderer {
 		this.s = sketch;
 		this.cube = cube;
 		
-		// create canvas
-		s.size(width, height, PConstants.OPENGL);
+		// create canvas when in Processing Development Environment
+		// TODO: no longer works in latest Processing!
+		// maybe this works: http://forum.processing.org/one/topic/switching-renderers-on-the-fly.html
+		try {
+			s.size(width, height, PConstants.P3D);
+		} catch(IllegalStateException e) {
+			// error message displayed iff in Eclipse and not in PDE
+			System.out.println("Caught exception " + e);
+		}
 
 		glh = new GLHelpers(s);
-		s.registerDispose(this);	// TODO: releasing libGL.dylib resources fails with bad memory access!
+		s.registerMethod("dispose", this);	// TODO: releasing libGL.dylib resources fails with bad memory access!
 
 		// setup constants according to size of canvas and size of cube
 		screenSize = PApplet.min(s.width, s.height);
@@ -113,7 +121,8 @@ public class VisualCubeRenderer {
 		s.background(0);
 		
 		// hand cursor
-		s.cursor(PConstants.HAND);
+		// TODO: latest Processing says: "Cursor types not supported in OpenGL, provide your cursor image"
+		//s.cursor(PConstants.HAND);
 	}
 		
 	/**
@@ -243,7 +252,7 @@ public class VisualCubeRenderer {
 		smallFont.print("Use mouse buttons to show markers & to spin cube.", 
 				new Vector2D(s.width/2, s.height/2 + 17), ALIGN.CENTER);
 
-		String[] path = s.sketchPath.split("[/\\\\]");  // splitting at path separators '/' or '\'
+		String[] path = s.sketchPath().split("[/\\\\]");  // splitting at path separators '/' or '\'
 		mediumFont.setColor(255, 255, 255, (int)(cubeAlpha * 255));
 		mediumFont.print(path[path.length - 1], new Vector2D(s.width/2, s.height - 70), ALIGN.CENTER);
 		

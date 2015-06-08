@@ -127,7 +127,12 @@ public class VisualCube implements AbstractVisualCube {
 	 * @param height	Height of canvas
 	 */
 	public void simulate(int width, int height) {
-		sketch.registerDraw(new VisualCubeRenderer(sketch, this, width, height));
+		System.out.println("Setting the size this way no longer works, you must place 'size(" + width + ", " + height + ", P3D);' as the first line in your setup() method. An OpenGL exception will occur.");
+		
+		sketch.registerMethod("draw", new VisualCubeRenderer(sketch, this, width, height));
+	}
+	public void simulate() {
+		sketch.registerMethod("draw", new VisualCubeRenderer(sketch, this, 800, 800));
 	}
 	
 	/* (non-Javadoc)

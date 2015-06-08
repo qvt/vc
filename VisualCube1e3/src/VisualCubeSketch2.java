@@ -1,4 +1,5 @@
 import java.util.Random;
+
 import processing.core.*;
 import processing.visualcube1e3.*;
 
@@ -22,7 +23,22 @@ import processing.visualcube1e3.*;
 @SuppressWarnings("serial")
 public class VisualCubeSketch2 extends PApplet {
 
-	VisualCube cube = new VisualCube(this);
+	public static void main(String args[]) {
+		PApplet.main(new String[] { "VisualCubeSketch2" }); //--present
+	}
+	// Processing says:
+	//	When not using the PDE, size() can only be used inside settings().
+	//	Remove the size() method from setup(), and add the following:
+	//	public void settings() {
+	//	  size(800, 800, P3D);
+	//	}
+    public void settings() {
+		size(800, 800, PConstants.OPENGL);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////
+
+    VisualCube cube = new VisualCube(this);
 	Random rnd = new Random();
 	float x = rnd.nextFloat();
 	float y = rnd.nextFloat(); 

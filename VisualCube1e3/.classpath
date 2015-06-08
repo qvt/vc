@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="opengl.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="VisualCube1e3"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="jogl.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="VisualCube1e3"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="core.jar"/>
-	<classpathentry kind="lib" path="xmlrpc-client-3.1.1.jar"/>
-	<classpathentry kind="lib" path="xmlrpc-common-3.1.1.jar"/>
-	<classpathentry kind="lib" path="ws-commons-util-1.0.2.jar"/>
-	<classpathentry kind="lib" path="jogl-natives-macosx-universal.jar"/>
-	<classpathentry kind="lib" path="jogl_awt.dll"/>
-	<classpathentry kind="lib" path="jogl_cg.dll"/>
-	<classpathentry kind="lib" path="jogl-natives-linux-i586.jar"/>
-	<classpathentry kind="lib" path="jogl-natives-macosx-ppc.jar"/>
-	<classpathentry kind="lib" path="jogl-natives-windows-i586.jar"/>
-	<classpathentry kind="lib" path="jogl.dll"/>
-	<classpathentry kind="lib" path="libjogl_awt.jnilib"/>
-	<classpathentry kind="lib" path="libjogl_awt.so"/>
-	<classpathentry kind="lib" path="libjogl_cg.jnilib"/>
-	<classpathentry kind="lib" path="libjogl_cg.so"/>
-	<classpathentry kind="lib" path="libjogl_drihack.so"/>
-	<classpathentry kind="lib" path="libjogl.jnilib"/>
-	<classpathentry kind="lib" path="libjogl.so"/>
-	<classpathentry kind="lib" path="gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/core.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/ws-commons-util-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/xmlrpc-client-3.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/xmlrpc-common-3.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

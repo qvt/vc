@@ -6,7 +6,7 @@ import java.io.InputStream;
 
 import processing.core.PApplet;
 
-import com.sun.opengl.util.j2d.*;
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 class GLTextRenderer {
 	public static enum ALIGN {

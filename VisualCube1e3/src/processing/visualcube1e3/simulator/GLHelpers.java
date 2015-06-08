@@ -1,22 +1,25 @@
 package processing.visualcube1e3.simulator;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
 
 import processing.core.PApplet;
 import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PJOGL;
 
-import com.sun.opengl.util.GLUT;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 /**
  * Collection of helpers for users of JOGL/OpenGL within Processing.
+ * Update 2015-06-04 from Processing 1.0.5 and JOGL1 to Processing 3.0a9 and JOGL 2.3.1.
+ * @see https://github.com/processing/processing/wiki/Advanced-OpenGL
  */
 class GLHelpers {
 	private PApplet s;
 	private PGraphicsOpenGL pgl = null;
 	private GLUT glut = null;
 	private GLU glu = null;
-	private GL gl = null;
+	private GL2 gl = null;
 	private double[] modelView2D;
 	
 	/**
@@ -31,17 +34,17 @@ class GLHelpers {
 	 * Start drawing
 	 */
 	public void begin() {
-		pgl = (PGraphicsOpenGL) s.g;	// g may change
-		glut = new GLUT();				// OpenGL utility toolkit (objects)
-		glu = pgl.glu;					// OpenGL utility functions (helpers)
-		gl = pgl.beginGL();				// always use the GL object returned by beginGL
+		pgl = (PGraphicsOpenGL) s.g;				// g may change
+		glut = new GLUT();							// OpenGL utility toolkit (objects)
+		glu = ((PJOGL)pgl.beginPGL()).glu;			// OpenGL utility functions (helpers)
+		gl = ((PJOGL)pgl.beginPGL()).gl.getGL2();	// always use the GL object returned by beginGL
 		modelView2D = getModelView();
 
 		// configure OpenGL
-		gl.glPushAttrib(GL.GL_ALL_ATTRIB_BITS);
-		gl.glDisable(GL.GL_DEPTH_TEST);					// this fixes the overlap issue
-	    gl.glEnable(GL.GL_BLEND);						// turn on alpha blending
-	    gl.glBlendFunc(GL.GL_SRC_ALPHA,GL.GL_ONE_MINUS_SRC_ALPHA);	// define the blend mode
+		gl.glPushAttrib(GL2.GL_ALL_ATTRIB_BITS);
+		gl.glDisable(GL2.GL_DEPTH_TEST);					// this fixes the overlap issue
+	    gl.glEnable(GL2.GL_BLEND);						// turn on alpha blending
+	    gl.glBlendFunc(GL2.GL_SRC_ALPHA,GL2.GL_ONE_MINUS_SRC_ALPHA);	// define the blend mode
 
 //	    glu.gluPerspective(fovy, 1f*s.width/s.height, near, far);
 //	    gl.glViewport(0, 0, s.width, s.height);
@@ -57,7 +60,7 @@ class GLHelpers {
 	public void end() {
 	    // restore old OpenGL settings/matrices
 	    gl.glPopAttrib();
-		pgl.endGL();
+		pgl.endPGL();
 		pgl = null;
 		glu = null;
 		gl = null;
@@ -70,9 +73,9 @@ class GLHelpers {
 		double[] modelView = new double[16], projection = new double[16];
 		int[] viewPort = new int[4];
 
-		gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, modelView, 0);
-		gl.glGetDoublev(GL.GL_PROJECTION_MATRIX, projection, 0);
-		gl.glGetIntegerv(GL.GL_VIEWPORT, viewPort, 0);
+		gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, modelView, 0);
+		gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projection, 0);
+		gl.glGetIntegerv(GL2.GL_VIEWPORT, viewPort, 0);
 		
 		PApplet.println("modelView  =" + modelView[0] + " " + modelView[1] + " " + modelView[2] + " " + modelView[3]);
 		PApplet.println("            " + modelView[4] + " " + modelView[5] + " " + modelView[6] + " " + modelView[7]);
@@ -96,9 +99,9 @@ class GLHelpers {
 		double[] modelView = new double[16], projection = new double[16], coordinate = { 0, 0, 0 };
 		int[] viewPort = new int[4];
 
-		gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, modelView, 0);
-		gl.glGetDoublev(GL.GL_PROJECTION_MATRIX, projection, 0);
-		gl.glGetIntegerv(GL.GL_VIEWPORT, viewPort, 0);
+		gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, modelView, 0);
+		gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projection, 0);
+		gl.glGetIntegerv(GL2.GL_VIEWPORT, viewPort, 0);
 		glu.gluProject(v.x, v.y, v.z, modelView, 0, projection, 0, viewPort, 0, coordinate, 0);
 		return new Vector3D((float) coordinate[0], (float) viewPort[3] - (float) coordinate[1], (float) coordinate[2]);
 	}
@@ -110,7 +113,7 @@ class GLHelpers {
 	public double[] getModelView() {
 		double[] model = new double[16];
 		
-		gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, model, 0);
+		gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, model, 0);
 		
 		return model;
 	}
@@ -120,7 +123,7 @@ class GLHelpers {
 	 * @param model Model view matrix (array of 16 doubles)
 	 */
 	public void setModelView(double[] model) {
-		gl.glMatrixMode(GL.GL_MODELVIEW);
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		gl.glLoadMatrixd(model, 0);
 	}
 
@@ -164,7 +167,7 @@ class GLHelpers {
 		pushMatrix();
 		setModelView(modelView2D);
 		
-		gl.glBegin(GL.GL_QUADS);
+		gl.glBegin(GL2.GL_QUADS);
 	    gl.glVertex2f(v1.x, v2.y);
 	    gl.glVertex2f(v2.x, v2.y);
 	    gl.glVertex2f(v2.x, v1.y);
@@ -183,7 +186,7 @@ class GLHelpers {
 		pushMatrix();
 		setModelView(modelView2D);
 		
-		gl.glBegin(GL.GL_LINES);
+		gl.glBegin(GL2.GL_LINES);
 	    gl.glVertex2f(v1.x, v1.y);
 	    gl.glVertex2f(v2.x, v2.y);
 	    gl.glEnd();
@@ -197,7 +200,7 @@ class GLHelpers {
 	 * @param v2 End point
 	 */
 	public void drawLine(Vector3D v1, Vector3D v2) {
-		gl.glBegin(GL.GL_LINES);
+		gl.glBegin(GL2.GL_LINES);
 	    gl.glVertex3f(v1.x, v1.y, v1.z);
 	    gl.glVertex3f(v2.x, v2.y, v2.z);
 	    gl.glEnd();			

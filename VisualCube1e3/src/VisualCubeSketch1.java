@@ -1,4 +1,5 @@
 import java.util.Random;
+
 import processing.core.*;
 import processing.visualcube1e3.*;
 
@@ -6,11 +7,26 @@ import processing.visualcube1e3.*;
  * Processing example program showing how to control the VisualCube.
  * 
  * @author	Andreas Rentschler
- * @date	2008-07-21
+ * @date	2008-07-21, updated 2015-06-04
  * @version	1.0
  */
 @SuppressWarnings("serial")
 public class VisualCubeSketch1 extends PApplet {
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { "VisualCubeSketch1" }); //--present
+	}
+	// Processing says:
+	//	When not using the PDE, size() can only be used inside settings().
+	//	Remove the size() method from setup(), and add the following:
+	//	public void settings() {
+	//	  size(800, 800, P3D);
+	//	}
+    public void settings() {
+		//size(800, 800, PConstants.P3D);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////
 
     VisualCube cube = new VisualCube(this);
     Random rnd = new Random();
@@ -22,7 +38,7 @@ public class VisualCubeSketch1 extends PApplet {
         cube.simulate(800, 800);
     	
     	// connect to remote device
-    	cube.open("192.168.2.173");
+    	cube.open("10.0.0.1"); //("192.168.2.173");
         
         // fill with green color of random intensity
         cube.fill(0, rnd.nextInt(VisualCube.colors), 0);

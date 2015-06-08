@@ -1,3 +1,0 @@
-javadoc -doclet com.tarsec.javadoc.pdfdoclet.PDFDoclet -docletpath ./pdfdoclet-1.0.2-all.jar -pdf doclet.pdf -config doclet.properties -public -sourcepath ./src processing.visualcube1e3
-
-javadoc -doclet com.tarsec.javadoc.pdfdoclet.PDFDoclet -docletpath /Users/Andi/Desktop/pdfdoclet-1.0.2-all.jar -pdf doclet2.pdf -config doclet.properties -public -sourcepath ./src processing.visualcube1e3.device -classpath xmlrpc-client-3.1.1.jar:xmlrpc-common-3.1.1.jar:ws-commons-util-1.0.2.jar:commons-codec-1.3.jar:commons-httpclient-3.1.jar:commons-logging-1.1.jar
